@@ -6,7 +6,7 @@ This plugin uses `Socket.getaddrinfo` internally.
 
 ## Requirements
 
-- Fluentd v1 or later
+- Fluentd v1.8 or later
 
 ## Installation
 
