@@ -91,12 +91,12 @@ Specify the desired address family. By default, `sd_dns` gets IPv4 and IPv6 addr
 
 The shared_key per entry
 
-#### usename
+#### username
 
 - Type: string
 - Default: empty string
 
-The usename for authentication.
+The username for authentication.
 
 #### password
 
