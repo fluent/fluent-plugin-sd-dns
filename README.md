@@ -180,7 +180,7 @@ If you want to contine the update process, set `ignore_dns_error true`
     interval 60
     ignore_dns_error true
     <entry>
-      host host1.domain  # 
+      host host1.domain
       port 24224
     </entry>
     <entry>
