@@ -74,9 +74,10 @@ class DnsServiceDiscoveryTest < ::Test::Unit::TestCase
           address_family ipv4
         </entry>
       ]))
-      assert_equal Fluent::Plugin::ServiceDiscovery::Service.new(:dns, '127.0.0.1', 80, '0-localhost', 60, false, '', '', nil), @sd_dns.services[0]
-      assert_equal Fluent::Plugin::ServiceDiscovery::Service.new(:dns, '127.0.0.1', 81, '0-localhost', 60, false, '', '', nil), @sd_dns.services[1]
-      assert_equal Fluent::Plugin::ServiceDiscovery::Service.new(:dns, '127.0.0.1', 82, '0-localhost', 60, false, '', '', nil), @sd_dns.services[2]
+      services = @sd_dns.services.sort_by {|e| e.name }
+      assert_equal Fluent::Plugin::ServiceDiscovery::Service.new(:dns, '127.0.0.1', 80, '0-localhost', 60, false, '', '', nil), services[0]
+      assert_equal Fluent::Plugin::ServiceDiscovery::Service.new(:dns, '127.0.0.1', 81, '0-localhost', 60, false, '', '', nil), services[1]
+      assert_equal Fluent::Plugin::ServiceDiscovery::Service.new(:dns, '127.0.0.1', 82, '0-localhost', 60, false, '', '', nil), services[2]
     end
 
     test 'raise an error for no <entry>' do
