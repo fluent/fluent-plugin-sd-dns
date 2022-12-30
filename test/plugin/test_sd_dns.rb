@@ -78,7 +78,7 @@ class DnsServiceDiscoveryTest < ::Test::Unit::TestCase
       assert_equal([Fluent::Plugin::ServiceDiscovery::Service.new(:dns, '127.0.0.1', 80, '0-localhost', 60, false, '', '', nil),
                     Fluent::Plugin::ServiceDiscovery::Service.new(:dns, '127.0.0.1', 81, '0-localhost', 60, false, '', '', nil),
                     Fluent::Plugin::ServiceDiscovery::Service.new(:dns, '127.0.0.1', 82, '0-localhost', 60, false, '', '', nil)],
-                   services)
+                   services.slice(0..2))
     end
 
     test 'raise an error for no <entry>' do
