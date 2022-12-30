@@ -75,9 +75,10 @@ class DnsServiceDiscoveryTest < ::Test::Unit::TestCase
         </entry>
       ]))
       services = @sd_dns.services.sort_by {|e| e.name }
-      assert_equal Fluent::Plugin::ServiceDiscovery::Service.new(:dns, '127.0.0.1', 80, '0-localhost', 60, false, '', '', nil), services[0]
-      assert_equal Fluent::Plugin::ServiceDiscovery::Service.new(:dns, '127.0.0.1', 81, '0-localhost', 60, false, '', '', nil), services[1]
-      assert_equal Fluent::Plugin::ServiceDiscovery::Service.new(:dns, '127.0.0.1', 82, '0-localhost', 60, false, '', '', nil), services[2]
+      assert_equal([Fluent::Plugin::ServiceDiscovery::Service.new(:dns, '127.0.0.1', 80, '0-localhost', 60, false, '', '', nil),
+                    Fluent::Plugin::ServiceDiscovery::Service.new(:dns, '127.0.0.1', 81, '0-localhost', 60, false, '', '', nil),
+                    Fluent::Plugin::ServiceDiscovery::Service.new(:dns, '127.0.0.1', 82, '0-localhost', 60, false, '', '', nil)],
+                   services)
     end
 
     test 'raise an error for no <entry>' do
@@ -105,9 +106,9 @@ class DnsServiceDiscoveryTest < ::Test::Unit::TestCase
           port 80
         </entry>
       ]))
-      assert_equal 2, @sd_dns.services.size
-      assert_equal Fluent::Plugin::ServiceDiscovery::Service.new(:dns, '::1', 80, '0-localhost', 60, false, '', '', nil), @sd_dns.services[0]
-      assert_equal Fluent::Plugin::ServiceDiscovery::Service.new(:dns, '127.0.0.1', 80, '1-localhost', 60, false, '', '', nil), @sd_dns.services[1]
+      assert_equal([Fluent::Plugin::ServiceDiscovery::Service.new(:dns, '::1', 80, '0-localhost', 60, false, '', '', nil),
+                    Fluent::Plugin::ServiceDiscovery::Service.new(:dns, '127.0.0.1', 80, '1-localhost', 60, false, '', '', nil)],
+                   @sd_dns.services)
     end
   end
 
