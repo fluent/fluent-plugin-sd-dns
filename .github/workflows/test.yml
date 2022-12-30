@@ -15,7 +15,7 @@ jobs:
         # It should be removed after RubyInstaller 3.2 is available on setup-ruby
         exclude:
           - os: 'windows-latest'
-          - ruby: '3.2'
+            ruby: '3.2'
     name: Ruby ${{ matrix.ruby }} unit testing on ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v2
