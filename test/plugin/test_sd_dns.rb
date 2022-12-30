@@ -74,7 +74,7 @@ class DnsServiceDiscoveryTest < ::Test::Unit::TestCase
           address_family ipv4
         </entry>
       ]))
-      services = @sd_dns.services.sort_by {|e| e.name }
+      services = @sd_dns.services.sort_by {|e| [e.name, e.port] }
       assert_equal([Fluent::Plugin::ServiceDiscovery::Service.new(:dns, '127.0.0.1', 80, '0-localhost', 60, false, '', '', nil),
                     Fluent::Plugin::ServiceDiscovery::Service.new(:dns, '127.0.0.1', 81, '0-localhost', 60, false, '', '', nil),
                     Fluent::Plugin::ServiceDiscovery::Service.new(:dns, '127.0.0.1', 82, '0-localhost', 60, false, '', '', nil)],
