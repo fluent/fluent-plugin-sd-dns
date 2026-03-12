@@ -4,26 +4,31 @@ on:
     branches: [master]
   pull_request:
     branches: [master]
+  schedule:
+    - cron: '0 0 1 * *'
 jobs:
+  ruby-versions:
+    uses: ruby/actions/.github/workflows/ruby_versions.yml@master
+    with:
+      engine: cruby
+      min_version: 3.1
   build:
+    needs: ruby-versions
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        ruby: [ '3.4', '3.3', '3.2', '3.1' ]
-        os: [ 'ubuntu-latest', 'macos-latest', 'windows-latest' ]
-        # It should be removed after RubyInstaller 3.2 is available on setup-ruby
+        ruby: ${{ fromJson(needs.ruby-versions.outputs.versions) }}
         exclude:
-          - os: 'windows-latest'
-            ruby: '3.2'
+          - ruby: head
+        os: [ 'ubuntu-latest', 'macos-latest', 'windows-latest' ]
     name: Ruby ${{ matrix.ruby }} unit testing on ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v6
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby }}
     - name: unit testing
       run: |
-        gem install bundler rake
         bundle install --jobs 4 --retry 3
         bundle exec rake test
